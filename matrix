@@ -1,0 +1,3 @@
+def sequenced(row):
+  new_row=(row-row.mean())/(row.max()-row.min())
+  return new_row
