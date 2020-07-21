@@ -1,3 +1,4 @@
+# google colab
 from google.colab import files
 uploaded=files.upload()
 import pandas as pd
@@ -10,3 +11,5 @@ df2=pd.read_csv(io.BytesIO(uploaded['ratings.csv']))
 df2=pd.read_csv(io.BytesIO(uploaded['tags.csv']))
 ratings=pd.read_csv("ratings.csv")
 ratings
+
+# jupyter
