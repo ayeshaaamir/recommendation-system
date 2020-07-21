@@ -1,2 +1,2 @@
 # recommendation-system
-Movie Recommendation System
+A Movie Recommendation System which includes collaborative filtering, sentiment analysis and image processing.
