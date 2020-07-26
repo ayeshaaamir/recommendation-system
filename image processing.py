@@ -59,3 +59,10 @@ import cv2
 ap = argparse.ArgumentParser()
 ap.add_argument("-a", "--avgs D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", required=True,
 	help="path to averages JSON file")
+ap.add_argument("-b", "--barcode D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", required=True,
+	help="path to output barcode visualization image")
+ap.add_argument("-t", "--height D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", type=int, default=250,
+	help="height of output barcode image")
+ap.add_argument("-w", "--barcode-width D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", type=int, default=1,
+	help="width of each bar in output image")
+args = vars(ap.parse_args())
