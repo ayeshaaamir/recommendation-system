@@ -48,6 +48,14 @@ while True:
 		avgs.append(avg)
 
 video.release()
-
 print("[INFO] saving frame averages..
 
+#visualize barcode
+import numpy as np
+import argparse
+import json
+import cv2
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-a", "--avgs D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", required=True,
+	help="path to averages JSON file")
