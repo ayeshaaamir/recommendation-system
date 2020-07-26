@@ -8,3 +8,14 @@ import bs4 as bs
 import urllib.request
 import pickle
 import requests
+from tmdbv3api import TMDb
+
+tmdb = TMDb()
+tmdb.api_key = '98e756301f07f4baba743620fa8ffd63'
+
+from tmdbv3api import Movie
+
+# load the nlp model and tfidf vectorizer from disk
+filename = 'nlp_model.pkl'
+clf = pickle.load(open(filename, 'rb'))
+vectorizer = pickle.load(open('tranform.pkl','rb'))
