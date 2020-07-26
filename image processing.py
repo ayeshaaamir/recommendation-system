@@ -7,3 +7,8 @@ ap.add_argument("-v", "--video ", required=True,
 	help="path to input video file")
 ap.add_argument("-o", "--override", type=int, default=-1,
 	help="whether to force manual frame count")
+args = vars(ap.parse_args())
+
+
+override = False if args["override"] < 0 else True
+total = count_frames(args["video"], override=override)
