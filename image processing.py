@@ -12,3 +12,5 @@ args = vars(ap.parse_args())
 
 override = False if args["override"] < 0 else True
 total = count_frames(args["video"], override=override)
+print("[INFO] {:,} total frames read from {}".format(total,
+	args["video"][args["video"].rfind(os.path.sep) + 1:]))
