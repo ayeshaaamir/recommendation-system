@@ -66,3 +66,17 @@ ap.add_argument("-t", "--height D:\Summer 2020\AI theory\MRS Project\movie-barco
 ap.add_argument("-w", "--barcode-width D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", type=int, default=1,
 	help="width of each bar in output image")
 args = vars(ap.parse_args())
+avgs = json.loads(open(args["avgs"]).read())
+avgs = np.array(avgs, dtype="int")
+
+bw = args["barcode_width"]
+barcode = np.zeros((args["height"], len(avgs) * bw, 3),
+	dtype="uint8")
+
+for (i, avg) in enumerate(avgs):
+	cv2.rectangle(barcode, (i * bw, 0), ((i + 1) * bw,
+		args["height"]), avg, -1)
+cv2.imwrite(args["barcode"], barcode)
+cv2.imshow("Barcode", barcode)
+cv2.waitKey(0)
+
