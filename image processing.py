@@ -15,4 +15,39 @@ total = count_frames(args["video"], override=override)
 print("[INFO] {:,} total frames read from {}".format(total,
 	args["video"][args["video"].rfind(os.path.sep) + 1:]))
 
-#generate barcode
+#generating barcode
+import argparse
+import json
+import cv2
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-v", "--video D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", required=True,
+	help="path to input video")
+ap.add_argument("-o", "--output D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", required=True,
+	help="path to output JSON file containing frame averages")
+ap.add_argument("-s", "--skip D:\Summer 2020\AI theory\MRS Project\movie-barcode\videos\jurassic_park_trailer.mp4", type=int, default=0,
+	help="# of frames to skip (to create shorter barcodes)")
+args = vars(ap.parse_args())
+
+avgs = []
+total = 0
+
+print("[INFO] looping over frames in video (this will take awhile)...")
+video = cv2.VideoCapture(args["video"])
+
+while True:
+	(grabbed, frame) = video.read()
+ 
+	if not grabbed:
+		break
+
+	total += 1
+
+	if args["skip"] == 0 or total % args["skip"] == 0:
+		avg = cv2.mean(frame)[:3]
+		avgs.append(avg)
+
+video.release()
+
+print("[INFO] saving frame averages..
+
