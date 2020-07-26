@@ -72,3 +72,52 @@ def get_suggestions():
     data = pd.read_csv('main_data.csv')
     return list(data['movie_title'].str.capitalize())
 app = Flask(__name__)
+
+avgs = json.loads(open(args["avgs"]).read())
+avgs = np.array(avgs, dtype="int")
+bw = args["barcode_width"]
+barcode = np.zeros((args["height"], len(avgs) * bw, 3),
+	dtype="uint8")
+
+for (i, avg) in enumerate(avgs):
+	cv2.rectangle(barcode, (i * bw, 0), ((i + 1) * bw,
+		args["height"]), avg, -1)
+
+cv2.imwrite(args["barcode"], barcode)
+cv2.imshow("Barcode", barcode)
+cv2.waitKey(0)
+From Rafay Khan to Everyone:  10:15 PM
+@app.route("/")
+def home():
+    suggestions = get_suggestions()
+    return render_template('home.html')
+
+
+@app.route("/recommend")
+def recommend():
+    movie = request.args.get('movie')
+    r = rcmd(movie)
+    movie = movie.upper()
+    if type(r)==type('string'):
+        return render_template('recommend.html',movie=movie,r=r,t='s')
+    else:
+        tmdb_movie = Movie()
+        result = tmdb_movie.search(movie)
+
+        
+        movie_id = result[0].id
+        movie_name = result[0].title
+        
+        
+        response = requests.get('https://api.themoviedb.org/3/movie/550?api_key=98e756301f07f4baba743620fa8ffd63'.format(movie_id,tmdb.api_key))
+        data_json = response.json()
+        imdb_id = data_json['imdb_id']
+        poster = data_json['poster_path']
+        img_path = 'https://image.tmdb.org/t/p/original{}'.format(poster)
+
+
+        genre = ListOfGenres(data_json['genres'])
+
+        
+        sauce = urllib.request.urlopen('https://www.imdb.com/title/{}/reviews?ref_=tt_ov_rt'.format(imdb_id)).rea
+
